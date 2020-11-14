@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, StatusBar } from "react-native";
 
 import Routes from "./src/routes";
@@ -12,22 +12,9 @@ const customFonts = {
 };
 
 export default function App() {
-  const [isfontsLoaded, setIsfontsLoaded] = useState(false);
-  useEffect(() => {
-    async function _loadFontsAsync() {
-      try {
-        await Font.loadAsync(customFonts);
-      } catch (error) {
-        console.log(error);
-      }
+  const [loaded] = Font.useFonts(customFonts);
 
-      setIsfontsLoaded(true);
-    }
-
-    _loadFontsAsync();
-  }, []);
-
-  if (!isfontsLoaded) {
+  if (!loaded) {
     return <AppLoading />;
   }
   return (
