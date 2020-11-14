@@ -1,30 +1,34 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import React, { useEffect, useState } from "react";
-import { View, StatusBar, ActivityIndicator } from "react-native";
+import { View, StatusBar } from "react-native";
 
 import Routes from "./src/routes";
 
+const customFonts = {
+  "RobotoSlab-Medium": require("./assets/fonts/RobotoSlab-Medium.ttf"),
+  "RobotoSlab-Regular": require("./assets/fonts/RobotoSlab-Regular.ttf"),
+};
+
 export default function App() {
-  const [isAssetsLoading, setIsAssetsLoading] = useState(false);
+  const [isfontsLoaded, setIsfontsLoaded] = useState(false);
   useEffect(() => {
-    async function loadAssets() {
-      setIsAssetsLoading(true);
-      await Font.loadAsync({
-        "RobotoSlab-Medium": require("./assets/fonts/RobotoSlab-Medium.ttf"),
-        "RobotoSlab-Regular": require("./assets/fonts/RobotoSlab-Regular.ttf"),
-      });
-      setIsAssetsLoading(false);
+    async function _loadFontsAsync() {
+      try {
+        await Font.loadAsync(customFonts);
+      } catch (error) {
+        console.log(error);
+      }
+
+      setIsfontsLoaded(true);
     }
 
-    loadAssets();
+    _loadFontsAsync();
   }, []);
-  if (isAssetsLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
+
+  if (!isfontsLoaded) {
+    return <AppLoading />;
   }
   return (
     <NavigationContainer>
