@@ -1,4 +1,5 @@
 import { Feather as Icon } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
   Image,
@@ -21,6 +22,7 @@ import {
 } from "./styles";
 
 const SignIn: React.FC = () => {
+  const navigation = useNavigation();
   return (
     <>
       <KeyboardAvoidingView
@@ -36,7 +38,7 @@ const SignIn: React.FC = () => {
             <Image source={logoImg} />
 
             <View>
-              <Title> Faça seu logon</Title>
+              <Title>Faça seu logon</Title>
             </View>
 
             <Input name="email" icon="mail" placeholder="E-mail" />
@@ -61,7 +63,7 @@ const SignIn: React.FC = () => {
 
       <CreateAccountButton
         onPress={() => {
-          console.log("CreateAccountButton");
+          navigation.navigate("SignUp");
         }}
       >
         <Icon name="log-in" size={20} color="#ff9000" />
