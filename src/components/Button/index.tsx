@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import { RectButtonProperties } from "react-native-gesture-handler";
 
 import { Container, ButtonText } from "./styles";
@@ -9,9 +10,12 @@ interface ButtonProps extends RectButtonProperties {
 
 const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
   return (
-    <Container {...rest}>
-      <ButtonText>{children}</ButtonText>
-    </Container>
+    // <View> </View> fix de estilo do botão quando ele está dentro do <Form></Form>
+    <View>
+      <Container {...rest}>
+        <ButtonText>{children}</ButtonText>
+      </Container>
+    </View>
   );
 };
 
