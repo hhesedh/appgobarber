@@ -1,6 +1,8 @@
 import { Feather as Icon } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import { FormHandles } from "@unform/core";
+import { Form } from "@unform/mobile";
+import React, { useRef } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -15,6 +17,8 @@ import Input from "../../components/Input";
 import { Container, Title, BackToSignIn, BackToSignInText } from "./styles";
 
 const SignUp: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+
   const navigation = useNavigation();
   return (
     <>
@@ -33,16 +37,23 @@ const SignUp: React.FC = () => {
             <View>
               <Title>Crie sua conta</Title>
             </View>
-            <Input name="name" icon="user" placeholder="Nome" />
-            <Input name="email" icon="mail" placeholder="E-mail" />
-            <Input name="password" icon="lock" placeholder="Senha" />
-            <Button
-              onPress={() => {
-                console.log("entrar");
+            <Form
+              ref={formRef}
+              onSubmit={(data) => {
+                console.log(data);
               }}
             >
-              Entrar
-            </Button>
+              <Input name="name" icon="user" placeholder="Nome" />
+              <Input name="email" icon="mail" placeholder="E-mail" />
+              <Input name="password" icon="lock" placeholder="Senha" />
+              <Button
+                onPress={() => {
+                  formRef.current?.submitForm();
+                }}
+              >
+                Entrar
+              </Button>
+            </Form>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
