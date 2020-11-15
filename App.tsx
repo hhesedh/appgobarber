@@ -4,6 +4,7 @@ import * as Font from "expo-font";
 import React from "react";
 import { View, StatusBar } from "react-native";
 
+import AppProvider from "./src/hooks";
 import Routes from "./src/routes";
 
 const customFonts = {
@@ -20,9 +21,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="#312e38" />
-      <View style={{ flex: 1, backgroundColor: "#312e38" }}>
-        <Routes />
-      </View>
+      <AppProvider>
+        <View style={{ flex: 1, backgroundColor: "#312e38" }}>
+          <Routes />
+        </View>
+      </AppProvider>
     </NavigationContainer>
   );
 }
