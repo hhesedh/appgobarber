@@ -10,6 +10,7 @@ import {
   Platform,
   ScrollView,
   View,
+  TextInput,
 } from "react-native";
 
 import logoImg from "../../../assets/img/logo/logo.png";
@@ -27,6 +28,7 @@ import {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const navigation = useNavigation();
   const { didKeyboardShow } = useKeyboardListener();
@@ -55,16 +57,28 @@ const SignIn: React.FC = () => {
 
             <Form ref={formRef} onSubmit={handleSignIn}>
               <Input
+                autoCorrect={false}
+                autoCapitalize="none"
+                keyboardType="email-address"
                 name="email"
                 icon="mail"
                 placeholder="E-mail"
-                onSubmitEditing={Keyboard.dismiss}
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
+                }}
+                blurOnSubmit={false}
               />
               <Input
+                ref={passwordInputRef}
                 name="password"
                 icon="lock"
                 placeholder="Senha"
-                onSubmitEditing={Keyboard.dismiss}
+                secureTextEntry
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                  formRef.current?.submitForm();
+                }}
               />
               <Button
                 onPress={() => {
