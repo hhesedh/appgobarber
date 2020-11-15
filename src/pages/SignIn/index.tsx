@@ -2,10 +2,9 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { FormHandles } from "@unform/core";
 import { Form } from "@unform/mobile";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import {
   Image,
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
